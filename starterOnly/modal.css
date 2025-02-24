@@ -321,12 +321,18 @@ input {
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
 }
-/*
-input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
+
+.error-message {
+  display: none;
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
+.formData[data-error-visible="true"] .error-message {
+  display: block;
+}
+
 .checkbox-label,
 .checkbox2-label {
   position: relative;
