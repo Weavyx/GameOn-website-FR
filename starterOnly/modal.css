@@ -66,10 +66,13 @@ p {
   height: 50.1px;
   margin: 52.9px 0 84px;
   width: 100%;
+  overflow: hidden;
+  margin: 3.5%;
 }
 .header-logo {
   width: 277px;
   height: 49.56px;
+  float: left;
 }
 .header-logo img {
   width: 277px;
@@ -78,6 +81,7 @@ p {
 .main-navbar {
   display: flex;
   flex-flow: row nowrap;
+  float: right;
 }
 .topnav .main-navbar a {
   display: block;
@@ -98,7 +102,7 @@ p {
 }
 
 .topnav .main-navbar a:hover {
-  background-color: #ff0000;
+  background-color: #fe142f;
   color: #ffffff;
   height: 41px;
   position: relative;
@@ -115,7 +119,7 @@ p {
 }
 
 .topnav a.active {
-  background-color: #ff0000;
+  background-color: #fe142f;
   color: #ffffff;
   height: 41px;
   position: relative;
@@ -146,6 +150,71 @@ p {
   float: none;
   display: block;
   text-align: left;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #000000;
+  text-align: center;
+  padding: 12px 12px;
+  margin: 5px;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: Roboto, sans-serif;
+}
+
+.topnav a:hover {
+  background-color: #fe142f;
+  color: #ffffff;
+  border-radius: 15px;
+}
+
+.topnav a.active {
+  background-color: #fe142f;
+  color: #ffffff;
+  border-radius: 15px;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .topnav .main-navbar a {
+    display: none;
+  }
+  .topnav .icon {
+    display: block;
+    float: right;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .topnav.responsive {
+    position: relative;
+  }
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive .main-navbar a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .topnav .main-navbar a {
+    display: none;
+  }
+  .topnav .icon {
+    float: right;
+    display: block;
+    margin-top: -15px;
+  }
 }
 
 /* Main */
@@ -306,7 +375,7 @@ input {
 .formData[data-error]::after {
   content: attr(data-error);
   font-size: 0.4em;
-  color: #e54858;
+  color: #fe142f;
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
@@ -319,12 +388,12 @@ input {
   opacity: 1;
 }
 .formData[data-error-visible="true"] .text-control {
-  border: 2px solid #e54858;
+  border: 2px solid #fe142f;
 }
 
 .error-message {
   display: none;
-  color: red;
+  color: #fe142f;
   font-size: 0.8em;
   margin-top: 5px;
 }
@@ -457,8 +526,8 @@ input {
   width: 11px;
   height: 11px;
   border: 3px solid transparent;
-  border-bottom-color: #f00;
-  border-left-color: #f00;
+  border-bottom-color: #fe142f;
+  border-left-color: #fe142f;
   transform: rotate(-48deg);
   border-radius: 5px 0 5px 0;
 }
@@ -525,6 +594,29 @@ footer {
   display: none;
 }
 
+.confirmation-message {
+  text-align: center;
+  font-size: 1.5em;
+  color: #fff;
+  padding: 20px;
+}
+
+.btn-close-modal {
+  background: #fe142f;
+  display: block;
+  margin: 20px auto;
+  border-radius: 7px;
+  font-size: 1rem;
+  padding: 12px 82px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+}
+
+.btn-close-modal:hover {
+  background: #3876ac;
+}
+
 @media screen and (max-width: 1200px) {
   body {
     margin: 0;
@@ -550,7 +642,7 @@ footer {
     display: block;
     width: 19px;
     height: 13.5px;
-    color: #ff001b;
+    color: #fe142f;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
@@ -632,6 +724,91 @@ footer {
 @media screen and (min-width: 1440px) {
   body {
     margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    padding: 0 30px;
+  }
+
+  .hero-section {
+    display: block;
+    box-shadow: unset;
+    min-height: unset;
+    margin-bottom: 0;
+  }
+
+  .hero-content {
+    background: #fff;
+    color: #000;
+    padding: 0;
+    min-width: unset;
+    width: 100%;
+  }
+
+  .hero-content::after {
+    content: unset;
+  }
+
+  .hero-content .btn-signup {
+    display: none;
+  }
+
+  .hero-headline {
+    font-size: 40px;
+    white-space: normal;
+    line-height: 52.08px;
+    font-weight: 500;
+    width: 100%;
+    min-width: 0;
+    height: 109px;
+  }
+
+  .hero-text {
+    width: 100%;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16.93px;
+    letter-spacing: 0;
+    margin-top: 17px;
+  }
+
+  .hero-img {
+    margin-top: 40px;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 100%;
+  }
+
+  .hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-section > .modal-btn-secondary {
+    display: block;
+    margin: 29px auto 0;
+    padding: 6.2px 31.5px 6.8px;
+    font-size: 14px;
+    line-height: 18.23px;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  footer {
+    margin: 29px auto 26px;
+  }
+
+  .copyrights {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 11.72px;
+    letter-spacing: 0;
+    font-family: "Roboto", sans-serif;
+    height: 12px;
   }
 }
 
