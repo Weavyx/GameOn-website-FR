@@ -129,6 +129,7 @@ form.addEventListener("submit", function (e) {
   if (validate()) {
     // Form is valid, show confirmation message
     showConfirmationMessage();
+    logFormData();
   }
 });
 
@@ -143,4 +144,12 @@ function showConfirmationMessage() {
   document
     .querySelector(".btn-close-modal")
     .addEventListener("click", closeModal);
+}
+
+// log form data
+function logFormData() {
+  const formData = new FormData(form);
+  formData.forEach((value, key) => {
+    console.log(`${key}: ${value}`);
+  });
 }
