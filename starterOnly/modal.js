@@ -1,3 +1,6 @@
+/**
+ * Toggle the navigation menu in responsive mode.
+ */
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -7,7 +10,7 @@ function editNav() {
   }
 }
 
-// DOM Elements
+// DOM elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".btn-signup");
 const formData = document.querySelectorAll(".formData");
@@ -15,25 +18,23 @@ const closeBtn = document.querySelector(".close");
 const form = document.querySelector("form[name='reserve']");
 const modalBody = document.querySelector(".modal-body");
 
-// launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// close modal event
 closeBtn.addEventListener("click", closeModal);
 
-// launch modal form
 function launchModal() {
   modalbg.style.display = "block";
   document.body.classList.add("modal-open");
 }
 
-// close modal form
 function closeModal() {
   modalbg.style.display = "none";
   document.body.classList.remove("modal-open");
 }
 
-// validate form
+/**
+ * Validate the form fields.
+ * @returns {boolean} True if the form is valid, otherwise false.
+ */
 function validate() {
   let isValid = true;
 
@@ -43,7 +44,7 @@ function validate() {
     field.setAttribute("data-error-visible", "false");
   });
 
-  // Check fields
+  // Validate each field
   isValid &= checkField(
     "first",
     /^[a-zA-Z]{2,}$/,
@@ -75,7 +76,13 @@ function validate() {
   return !!isValid;
 }
 
-// check individual field
+/**
+ * Check an individual field against a regex pattern.
+ * @param {string} id - The ID of the field to check.
+ * @param {RegExp} regex - The regex pattern to test against.
+ * @param {string} errorMessage - The error message to display if the field is invalid.
+ * @returns {boolean} True if the field is valid, otherwise false.
+ */
 function checkField(id, regex, errorMessage) {
   const value = document.getElementById(id).value;
   if (!regex.test(value)) {
@@ -87,7 +94,10 @@ function checkField(id, regex, errorMessage) {
   return true;
 }
 
-// check location field
+/**
+ * Check if a location is selected.
+ * @returns {boolean} True if a location is selected, otherwise false.
+ */
 function checkLocation() {
   const locationChecked = document.querySelector(
     "input[name='location']:checked"
@@ -106,7 +116,10 @@ function checkLocation() {
   return true;
 }
 
-// check terms and conditions
+/**
+ * Check if the terms and conditions are accepted.
+ * @returns {boolean} True if the terms are accepted, otherwise false.
+ */
 function checkTerms() {
   const terms = document.getElementById("checkbox1").checked;
   if (!terms) {
@@ -123,7 +136,7 @@ function checkTerms() {
   return true;
 }
 
-// handle form submit
+// Handle form submit
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   if (validate()) {
@@ -133,7 +146,9 @@ form.addEventListener("submit", function (e) {
   }
 });
 
-// show confirmation message
+/**
+ * Display a confirmation message after successful form submission.
+ */
 function showConfirmationMessage() {
   modalBody.innerHTML = `
     <div class="confirmation-message">
@@ -146,7 +161,6 @@ function showConfirmationMessage() {
     .addEventListener("click", closeModal);
 }
 
-// log form data
 function logFormData() {
   const formData = new FormData(form);
   formData.forEach((value, key) => {
