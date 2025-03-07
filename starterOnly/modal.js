@@ -152,7 +152,7 @@ form.addEventListener("submit", function (e) {
 function showConfirmationMessage() {
   modalBody.innerHTML = `
     <div class="confirmation-message">
-      <p>Merci ! Votre réservation a été reçue.</p>
+      <p class="text-reward">Merci pour votre inscription</p>
       <button class="btn-close-modal">Fermer</button>
     </div>
   `;
