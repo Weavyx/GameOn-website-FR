@@ -30,7 +30,6 @@
   padding: 0;
 }
 
-/* Landing Page */
 html {
   height: 100%;
 }
@@ -51,7 +50,6 @@ body.modal-open {
   background-color: #ffffff;
 }
 
-/* Header */
 .topnav {
   overflow: hidden;
   display: flex;
@@ -235,7 +233,7 @@ main {
   font-family: var(--font-default);
   font-size: 24px;
   line-height: 100%;
-  letter-spacing: 0px;
+  letter-spacing: 0;
 }
 
 .modal-btn,
@@ -317,7 +315,7 @@ label {
   margin-bottom: 17.07px;
   font-weight: 400;
   line-height: 100%;
-  letter-spacing: 0%;
+  letter-spacing: 0;
   text-align: justify;
   margin-top: 11.65px;
 }
@@ -335,10 +333,10 @@ input {
   border-radius: 8px;
   font-size: 18px;
   height: 64.73px;
-  font-family: DM Sans;
+  font-family: var(--font-default);
   font-weight: 400;
   line-height: 100%;
-  letter-spacing: 0%;
+  letter-spacing: 0;
   text-align: justify;
 }
 
@@ -363,7 +361,7 @@ input {
   font-weight: 400;
   font-size: 10px;
   line-height: 1.43;
-  letter-spacing: 0%;
+  letter-spacing: 0;
 }
 
 .formData[data-error-visible="true"]::after {
@@ -391,7 +389,7 @@ input {
   font-size: 12px;
   font-family: Roboto;
   font-weight: 400;
-  letter-spacing: 0%;
+  letter-spacing: 0;
   height: 25.89px;
   display: flex;
   align-items: center;
@@ -439,7 +437,7 @@ input {
   font-family: Roboto;
   font-weight: 400;
   line-height: 143%;
-  letter-spacing: 0%;
+  letter-spacing: 0;
   height: 25.55px;
   display: flex;
   align-items: center;
@@ -465,11 +463,9 @@ input {
   height: 10px;
   background: transparent;
   border: 2.5px solid transparent;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-  border-bottom-color: #fff;
+  border-top-color: #fff;
   border-left-color: #fff;
-  transform: rotate(-135deg) scaleY(-1);
+  transform: rotate(225deg) scale(1);
   left: 37%;
   top: 19%;
   position: absolute;
@@ -535,7 +531,7 @@ input {
   font-weight: 500;
   font-size: 14px;
   line-height: 100%;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   text-align: center;
   height: 40.14px;
 }
@@ -552,7 +548,7 @@ footer {
   font-weight: 400;
   font-size: 14px;
   line-height: 100%;
-  letter-spacing: 0%;
+  letter-spacing: 0;
   text-align: justify;
 }
 
@@ -590,7 +586,7 @@ footer {
   font-weight: 500;
   font-size: 14px;
   line-height: 100%;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   text-align: center;
   height: 40.14px;
 }
@@ -896,7 +892,7 @@ footer {
     height: 19.74px;
   }
   .formData:nth-child(8) .checkbox2-label .checkbox2-icon::after {
-    transform: rotate(-135deg) scaleY(-0.9);
+    transform: rotate(225deg) scale(0.9);
     top: 4%;
     left: 30%;
   }
@@ -907,7 +903,7 @@ footer {
     font-weight: 500;
     font-size: 14px;
     line-height: 100%;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     text-align: center;
     padding: 6.2px 35.5px 6.8px;
   }
