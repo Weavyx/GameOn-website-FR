@@ -566,11 +566,21 @@ footer {
   color: #fff;
 }
 
-.text-reward {
+.confirmation-message {
   height: 734.19px;
+}
+
+.text-reward {
+  height: 694.19px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: var(--font-default);
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 143%;
+  letter-spacing: 0;
+  text-align: center;
 }
 
 .btn-close-modal {
@@ -811,6 +821,13 @@ footer {
     letter-spacing: 0;
     font-family: "Roboto", sans-serif;
     height: 12px;
+  }
+
+  .confirmation-message {
+    height: 647px;
+  }
+  .text-reward {
+    height: 607px;
   }
   main {
     width: 100%;
