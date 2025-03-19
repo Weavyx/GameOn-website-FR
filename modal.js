@@ -31,6 +31,13 @@ function closeModal() {
   document.body.classList.remove("modal-open");
 }
 
+// Close modal when clicking outside of the modal content
+modalbg.addEventListener("click", function (e) {
+  if (e.target === modalbg) {
+    closeModal();
+  }
+});
+
 /**
  * Validate the form fields.
  * @returns {boolean} True if the form is valid, otherwise false.

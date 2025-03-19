@@ -790,11 +790,8 @@ footer {
     letter-spacing: 0;
   }
 
-  .bground {
-    top: 79.24px;
-  }
   .content {
-    margin: 0;
+    margin: 79.24px 0 0 0;
     max-width: unset;
   }
   footer {
