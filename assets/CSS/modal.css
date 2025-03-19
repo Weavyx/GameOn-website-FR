@@ -1,23 +1,14 @@
 @font-face {
   font-family: "DM sans";
-  src: url("./DM_Sans/DMSans-Regular.ttf") format("truetype");
+  src: url("../DM_Sans/DMSans-Regular.ttf") format("truetype");
   font-weight: 400;
 }
 @font-face {
   font-family: "DM sans";
-  src: url("./DM_Sans/DMSans-Medium.ttf") format("truetype");
+  src: url("../DM_Sans/DMSans-Medium.ttf") format("truetype");
   font-weight: 500;
 }
-@font-face {
-  font-family: "DM sans";
-  src: url("./DM_Sans/DMSans-Bold.ttf") format("truetype");
-  font-weight: 700;
-}
-@font-face {
-  font-family: "DM sans";
-  src: url("./DM_Sans/DMSans-Italic.ttf") format("truetype");
-  font-style: italic;
-}
+
 :root {
   --font-default: "DM sans", "Roboto", sans-serif;
   --font-slab: var(--font-default);
@@ -808,6 +799,14 @@ footer {
     line-height: 18.23px;
     font-weight: 500;
     letter-spacing: 0;
+  }
+
+  .bground {
+    top: 79.24px;
+  }
+  .content {
+    margin: 0;
+    max-width: unset;
   }
   footer {
     margin: 29px auto 0;
