@@ -12,11 +12,9 @@
   font-family: "Roboto Slab";
   src: url("../Roboto/Roboto-VariableFont_wdth,wght.ttf") format("truetype");
 }
-
 :root {
   --font-default: "DM sans", "Roboto Slab", sans-serif;
   --font-slab: "Roboto Slab", sans-serif;
-
   --color-primary: #fe142f;
   --color-text-light: #ffffff;
   --color-text-dark: #000000;
@@ -791,7 +789,6 @@ footer {
     font-weight: 500;
     letter-spacing: 0;
   }
-
   .content {
     margin: 79.24px 0 0 0;
     max-width: unset;
@@ -810,7 +807,6 @@ footer {
     font-family: var(--font-slab);
     height: 12px;
   }
-
   .confirmation-message {
     height: 647px;
   }
@@ -912,7 +908,6 @@ footer {
     width: 19.88px;
     height: 20px;
   }
-
   .formData:nth-child(7) .checkbox-label .checkbox-icon::after {
     width: 13.25px;
     height: 13.33px;
