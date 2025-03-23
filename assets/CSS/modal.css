@@ -43,7 +43,6 @@ html {
 
 body {
   font-family: var(--font-default);
-  font-size: 18px;
   padding: 0 100px;
   max-width: 1440px;
   display: flex;
@@ -339,6 +338,10 @@ input {
   text-align: justify;
 }
 
+.formData:nth-child(1) label {
+  margin-top: 0;
+}
+
 .formData:nth-child(7) {
   display: flex;
   flex-flow: row wrap;
@@ -490,21 +493,20 @@ input {
 
 .close {
   position: absolute;
-  right: 15px;
-  top: 15px;
-  width: 32px;
-  height: 32px;
+  right: 25.89px;
+  top: 25.89px;
+  width: 16.83px;
+  height: 16.83px;
   opacity: 1;
   cursor: pointer;
-  transform: scale(0.7);
 }
 
 .close:before,
 .close:after {
   position: absolute;
-  left: 15px;
+  left: 7px;
   content: " ";
-  height: 33px;
+  height: 22px;
   width: 3px;
   background-color: var(--color-bg-light);
 }
@@ -793,6 +795,7 @@ footer {
   .content {
     margin: 79.24px 0 0 0;
     max-width: unset;
+    padding-top: 8px;
   }
   footer {
     margin: 29px auto 0;
@@ -864,6 +867,12 @@ footer {
     font-weight: 500;
     letter-spacing: 0;
   }
+  .modal-body {
+    padding: 15px 7.25% 6px;
+  }
+  #hidden-word {
+    display: none;
+  }
   label,
   .text-label {
     margin: 9px 0 10px;
@@ -873,6 +882,15 @@ footer {
   }
   .formData:nth-child(7) {
     margin-bottom: 15px;
+    gap: 11.5px;
+    row-gap: 6px;
+  }
+  .formData:nth-child(8) {
+    row-gap: 6.58px;
+    margin-bottom: 14.95px;
+  }
+  .checkbox2-label {
+    height: 19.74px;
   }
   .formData:nth-child(8) .checkbox2-label .checkbox2-icon {
     width: 19.68px;
@@ -885,6 +903,34 @@ footer {
     transform: rotate(225deg) scale(1);
     top: 15%;
     left: 36%;
+  }
+  .checkbox-label {
+    gap: 4.75px;
+    height: 20px;
+  }
+  .formData:nth-child(7) .checkbox-label .checkbox-icon {
+    width: 19.88px;
+    height: 20px;
+  }
+
+  .formData:nth-child(7) .checkbox-label .checkbox-icon::after {
+    width: 13.25px;
+    height: 13.33px;
+  }
+  .close {
+    width: 15px;
+    height: 15px;
+    right: 20px;
+    top: 20px;
+  }
+  .close:before,
+  .close:after {
+    position: absolute;
+    left: 5.5px;
+    content: " ";
+    height: 19px;
+    width: 2px;
+    background-color: var(--color-bg-light);
   }
   form .btn-submit {
     width: 141px;

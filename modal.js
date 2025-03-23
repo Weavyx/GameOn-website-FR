@@ -70,7 +70,7 @@ function validate() {
   isValid &= checkField(
     "birthdate",
     /^\d{4}-\d{2}-\d{2}$/,
-    "Veuillez entrer une date de naissance valide au format AAAA-MM-JJ."
+    "Vous devez entrer votre date de naissance."
   );
   isValid &= checkField(
     "quantity",
@@ -113,10 +113,7 @@ function checkLocation() {
     const locationField = document
       .querySelector("input[name='location']")
       .closest(".formData");
-    locationField.setAttribute(
-      "data-error",
-      "Veuillez sélectionner une ville."
-    );
+    locationField.setAttribute("data-error", "Vous devez choisir une option.");
     locationField.setAttribute("data-error-visible", "true");
     return false;
   }
@@ -135,7 +132,7 @@ function checkTerms() {
       .closest(".formData");
     termsField.setAttribute(
       "data-error",
-      "Vous devez accepter les conditions d'utilisation."
+      "Vous devez vérifier que vous acceptez les termes et conditions."
     );
     termsField.setAttribute("data-error-visible", "true");
     return false;
@@ -147,9 +144,9 @@ function checkTerms() {
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   if (validate()) {
+    logFormData();
     // Form is valid, show confirmation message
     showConfirmationMessage();
-    logFormData();
   }
 });
 
@@ -159,7 +156,7 @@ form.addEventListener("submit", function (e) {
 function showConfirmationMessage() {
   modalBody.innerHTML = `
     <div class="confirmation-message">
-      <p class="text-reward">Merci pour votre inscription</p>
+      <p class="text-reward">Merci ! Votre réservation a été reçue.</p>
       <button class="btn-close-modal">Fermer</button>
     </div>
   `;
@@ -173,4 +170,10 @@ function logFormData() {
   formData.forEach((value, key) => {
     console.log(`${key}: ${value}`);
   });
+
+  // Log the state of the checkboxes
+  const isTermsChecked = document.getElementById("checkbox1").checked;
+  const isCheckbox2Checked = document.getElementById("checkbox2").checked;
+  console.log(`checkbox1 (terms accepted): ${isTermsChecked}`);
+  console.log(`checkbox2 (event notifications): ${isCheckbox2Checked}`);
 }
