@@ -1,16 +1,16 @@
 @font-face {
   font-family: "DM sans";
-  src: url("../DM_Sans/DMSans-Regular.ttf") format("truetype");
+  src: url("./DM_Sans/DMSans-Regular.ttf") format("truetype");
   font-weight: 400;
 }
 @font-face {
   font-family: "DM sans";
-  src: url("../DM_Sans/DMSans-Medium.ttf") format("truetype");
+  src: url("./DM_Sans/DMSans-Medium.ttf") format("truetype");
   font-weight: 500;
 }
 @font-face {
   font-family: "Roboto Slab";
-  src: url("../Roboto/Roboto-VariableFont_wdth,wght.ttf") format("truetype");
+  src: url("./Roboto/Roboto-VariableFont_wdth,wght.ttf") format("truetype");
 }
 :root {
   --font-default: "DM sans", "Roboto Slab", sans-serif;
