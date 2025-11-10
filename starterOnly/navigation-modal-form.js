@@ -54,12 +54,12 @@ function validate() {
   // Validate each field
   isValid &= checkField(
     "first",
-    /^[a-zA-Z]{2,}$/,
+    /^[a-zA-ZÀ-ÿ\s-]{2,}$/,
     "Veuillez entrer 2 caractères ou plus pour le champ du prénom."
   );
   isValid &= checkField(
     "last",
-    /^[a-zA-Z]{2,}$/,
+    /^[a-zA-ZÀ-ÿ\s-]{2,}$/,
     "Veuillez entrer 2 caractères ou plus pour le champ du nom."
   );
   isValid &= checkField(
