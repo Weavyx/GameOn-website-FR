@@ -3,32 +3,51 @@
 
 <head>
   <meta charset="utf-8">
-  <title>GameOn - Tournoi de Jeux Vidéo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GameOn - Tournoi de Jeux Vidéo | Marathon National de Gaming</title>
   <meta name="description"
     content="GameOn est une plateforme de réservation pour les tournois et conférences de jeux vidéo. Inscrivez-vous à nos événements gaming exclusifs et participez à des compétitions passionnantes.">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="keywords" content="tournoi jeux vidéo, gaming, compétition, esports, conférence gaming">
+  <meta name="theme-color" content="#fe142f">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gameon.maximenardelli.fr/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gameon.maximenardelli.fr/">
+  <meta property="og:title" content="GameOn - Tournoi de Jeux Vidéo">
+  <meta property="og:description"
+    content="Participez au Marathon National de Jeux Vidéos - Inscrivez-vous aux tournois GameOn et devenez champion!">
+  <meta property="og:image" content="https://gameon.maximenardelli.fr/bg_img.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GameOn - Tournoi de Jeux Vidéo">
+  <meta name="twitter:description" content="Marathon National de Jeux Vidéos - Réservez votre place!">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://static.cloudflareinsights.com; upgrade-insecure-requests;">
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="preload" href="./main.min.css" as="style">
   <link rel="stylesheet" href="./main.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 
 <body>
-  <div class="topnav" id="myTopnav">
+  <nav class="topnav" id="myTopnav" role="navigation" aria-label="Navigation principale">
     <div class="header-logo">
-      <img src="./Logo.png" alt="">
+      <img src="./Logo.png" alt="Logo GameOn - Plateforme de Tournois de Jeux Vidéo">
     </div>
     <div class="main-navbar">
-      <a href="#" class="active"><span>Accueil</span></a>
-      <a href="#"><span>Détails de l'évènement</span></a>
-      <a href="#"><span>À propos</span></a>
-      <a href="#"><span>Contact</span></a>
-      <a href="#"><span>Évènements passés</span></a>
+      <a href="#" class="active" aria-current="page"><span>Accueil</span></a>
+      <a href="#details"><span>Détails de l'évènement</span></a>
+      <a href="#about"><span>À propos</span></a>
+      <a href="#contact"><span>Contact</span></a>
+      <a href="#past-events"><span>Évènements passés</span></a>
     </div>
-    <a href="javascript:void(0);" class="icon" onclick="editNav()">
+    <button class="icon" id="navToggle" aria-label="Afficher le menu navigation" aria-expanded="false">
       <svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 1H19M0 7.5H19M0 14.5H19" stroke="#FF001B" stroke-width="2"></path>
       </svg>
-    </a>
-  </div>
+    </button>
+  </nav>
   <main>
     <div class="hero-section">
       <div class="hero-content">
@@ -43,16 +62,17 @@
         <button class="btn-signup modal-btn">je m'inscris</button>
       </div>
       <div class="hero-img">
-        <img src="./bg_img.jpg" alt="">
+        <img src="./bg_img.jpg" alt="Marathon de jeux vidéo - joueurs en compétition passionnante">
       </div>
       <button class="btn-signup modal-btn-secondary">je m'inscris</button>
     </div>
 
-    <div class="bground">
+    <div class="bground" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div class="content">
-        <span class="close"></span>
+        <button class="close" id="closeBtn" aria-label="Fermer le formulaire d'inscription"></button>
         <div class="modal-body">
-          <form name="reserve" action="index.html" method="get" onsubmit="return validate();">
+          <h2 id="modal-title" style="display: none;">Inscription au Tournoi GameOn</h2>
+          <form name="reserve" novalidate>
             <div class="formData" data-error-visible="false">
               <label for="first">Prénom</label><br>
               <input class="text-control" type="text" id="first" name="first" minlength="2" placeholder="Ex: Jean"><br>
@@ -127,6 +147,12 @@
   <footer>
     <p class="copyrights">Copyright 2014 - 2022, GameOn Inc.</p>
   </footer>
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token": "6050da688881497eaccd7531462790e5"}'
+    integrity="sha384-LAHn+YIvlXZdDEwbmR7E9n9G/N47j3JXvUjYlp8VDkGN3R3j3yWn4EEQD5jVbO4c"
+    crossorigin="anonymous"></script>
+  <!-- End Cloudflare Web Analytics -->
   <script src="./navigation-modal-form.js"></script>
 </body>
 

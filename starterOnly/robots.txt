@@ -1,16 +1,44 @@
+# GameOn - Robots Configuration
+# Site: https://gameon.maximenardelli.fr/
+
 User-agent: *
 Allow: /
-Allow: *.js
-Allow: *.css
-Allow: *.png
-Allow: *.jpg
-Allow: *.jpeg
-Allow: *.gif
-Allow: *.svg
-Allow: *.woff
-Allow: *.woff2
-Allow: *.ttf
+Allow: /*.js
+Allow: /*.css
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.woff
+Allow: /*.woff2
+Allow: /*.ttf
 
+# Block hidden directories
 Disallow: /.git/
+Disallow: /.gitignore
+Disallow: /.*
 
+# Block admin and system paths
+Disallow: /admin/
+Disallow: /config/
+Disallow: /.env
+
+# Crawl delay for respectful indexing
+Crawl-delay: 1
+
+# Sitemap location
 Sitemap: https://gameon.maximenardelli.fr/sitemap.xml
+
+# Allow common search engines and bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /

@@ -1,0 +1,21 @@
+{
+  "name": "gameon-website",
+  "version": "1.0.0",
+  "description": "GameOn - Landing Page Interactive",
+  "main": "starterOnly/index.html",
+  "scripts": {
+    "build:css": "node build-css.js",
+    "watch:css": "node watch-css.js"
+  },
+  "keywords": [
+    "gameon",
+    "tournament",
+    "gaming"
+  ],
+  "author": "Maxime Nardelli (@Weavyx)",
+  "license": "MIT",
+  "devDependencies": {
+    "cssnano": "^6.0.0",
+    "postcss": "^8.4.0"
+  }
+}

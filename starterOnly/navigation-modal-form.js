@@ -2,28 +2,38 @@
  * Toggle the navigation menu in responsive mode.
  */
 function editNav() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
+  const navToggle = document.getElementById("myTopnav");
+  navToggle.classList.toggle("responsive");
+  // Update aria-expanded for accessibility
+  const toggleBtn = document.getElementById("navToggle");
+  const isExpanded = navToggle.classList.contains("responsive");
+  toggleBtn.setAttribute("aria-expanded", isExpanded);
 }
 
+// Handle button click instead of inline onclick
+document.addEventListener("DOMContentLoaded", () => {
+  const navToggleBtn = document.getElementById("navToggle");
+  if (navToggleBtn) {
+    navToggleBtn.addEventListener("click", editNav);
+  }
+});
+
 // DOM elements
-const modalbg = document.querySelector(".bground");
+const modalbg = document.getElementById("modal");
 const modalBtn = document.querySelectorAll(".btn-signup");
 const formData = document.querySelectorAll(".formData");
-const closeBtn = document.querySelector(".close");
+const closeBtn = document.getElementById("closeBtn");
 const form = document.querySelector("form[name='reserve']");
 const modalBody = document.querySelector(".modal-body");
 
+// Add event listeners
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-closeBtn.addEventListener("click", closeModal);
+if (closeBtn) closeBtn.addEventListener("click", closeModal);
 
 function launchModal() {
   modalbg.style.display = "block";
   document.body.classList.add("modal-open");
+  closeBtn.focus(); // Accessibility: Set focus to close button
 }
 
 function closeModal() {
@@ -31,9 +41,16 @@ function closeModal() {
   document.body.classList.remove("modal-open");
 }
 
-// Close modal when clicking outside of the modal content
+// Close modal when clicking outside of the modal content (accessibility friendly)
 modalbg.addEventListener("click", function (e) {
   if (e.target === modalbg) {
+    closeModal();
+  }
+});
+
+// Keyboard escape to close modal
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modalbg.style.display === "block") {
     closeModal();
   }
 });
@@ -54,17 +71,17 @@ function validate() {
   // Validate each field
   isValid &= checkField(
     "first",
-    /^[a-zA-ZÀ-ÿ\s-]{2,}$/,
+    /^[a-zA-ZÀ-ÿ\s'-]{2,}$/,
     "Veuillez entrer 2 caractères ou plus pour le champ du prénom."
   );
   isValid &= checkField(
     "last",
-    /^[a-zA-ZÀ-ÿ\s-]{2,}$/,
+    /^[a-zA-ZÀ-ÿ\s'-]{2,}$/,
     "Veuillez entrer 2 caractères ou plus pour le champ du nom."
   );
   isValid &= checkField(
     "email",
-    /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     "Veuillez entrer une adresse email valide."
   );
   isValid &= checkField(
@@ -74,7 +91,7 @@ function validate() {
   );
   isValid &= checkField(
     "quantity",
-    /^\d{1,2}$/,
+    /^([0-9]|[1-9][0-9])$/,
     "Veuillez entrer un nombre entre 0 et 99."
   );
   isValid &= checkLocation();
@@ -91,11 +108,16 @@ function validate() {
  * @returns {boolean} True if the field is valid, otherwise false.
  */
 function checkField(id, regex, errorMessage) {
-  const value = document.getElementById(id).value;
+  const field = document.getElementById(id);
+  const value = field?.value ?? "";
+
   if (!regex.test(value)) {
-    const field = document.getElementById(id).closest(".formData");
-    field.setAttribute("data-error", errorMessage);
-    field.setAttribute("data-error-visible", "true");
+    const fieldContainer = field?.closest(".formData");
+    if (fieldContainer) {
+      fieldContainer.setAttribute("data-error", errorMessage);
+      fieldContainer.setAttribute("data-error-visible", "true");
+      field.focus(); // Accessibility: focus on invalid field
+    }
     return false;
   }
   return true;
@@ -112,9 +134,14 @@ function checkLocation() {
   if (!locationChecked) {
     const locationField = document
       .querySelector("input[name='location']")
-      .closest(".formData");
-    locationField.setAttribute("data-error", "Vous devez choisir une option.");
-    locationField.setAttribute("data-error-visible", "true");
+      ?.closest(".formData");
+    if (locationField) {
+      locationField.setAttribute(
+        "data-error",
+        "Vous devez choisir une option."
+      );
+      locationField.setAttribute("data-error-visible", "true");
+    }
     return false;
   }
   return true;
@@ -125,30 +152,33 @@ function checkLocation() {
  * @returns {boolean} True if the terms are accepted, otherwise false.
  */
 function checkTerms() {
-  const terms = document.getElementById("checkbox1").checked;
+  const terms = document.getElementById("checkbox1")?.checked;
   if (!terms) {
     const termsField = document
       .getElementById("checkbox1")
-      .closest(".formData");
-    termsField.setAttribute(
-      "data-error",
-      "Vous devez vérifier que vous acceptez les termes et conditions."
-    );
-    termsField.setAttribute("data-error-visible", "true");
+      ?.closest(".formData");
+    if (termsField) {
+      termsField.setAttribute(
+        "data-error",
+        "Vous devez vérifier que vous acceptez les termes et conditions."
+      );
+      termsField.setAttribute("data-error-visible", "true");
+    }
     return false;
   }
   return true;
 }
 
 // Handle form submit
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-  if (validate()) {
-    logFormData();
-    // Form is valid, show confirmation message
-    showConfirmationMessage();
-  }
-});
+if (form) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (validate()) {
+      logFormData();
+      showConfirmationMessage();
+    }
+  });
+}
 
 /**
  * Display a confirmation message after successful form submission.
@@ -157,7 +187,7 @@ function showConfirmationMessage() {
   modalBody.innerHTML = `
     <div class="confirmation-message">
       <p class="text-reward">Merci ! Votre réservation a été reçue.</p>
-      <button class="btn-close-modal">Fermer</button>
+      <button class="btn-submit btn-close-modal">Fermer</button>
     </div>
   `;
   document
@@ -165,15 +195,20 @@ function showConfirmationMessage() {
     .addEventListener("click", closeModal);
 }
 
+/**
+ * Log form data to console (for debugging).
+ */
 function logFormData() {
-  const formData = new FormData(form);
-  formData.forEach((value, key) => {
+  const fd = new FormData(form);
+
+  // Log all form fields
+  fd.forEach((value, key) => {
     console.log(`${key}: ${value}`);
   });
 
-  // Log the state of the checkboxes
-  const isTermsChecked = document.getElementById("checkbox1").checked;
-  const isCheckbox2Checked = document.getElementById("checkbox2").checked;
-  console.log(`checkbox1 (terms accepted): ${isTermsChecked}`);
-  console.log(`checkbox2 (event notifications): ${isCheckbox2Checked}`);
+  // Log checkbox states
+  const isTermsChecked = document.getElementById("checkbox1")?.checked;
+  const isEventsNotif = document.getElementById("checkbox2")?.checked;
+  console.log(`Conditions acceptées: ${isTermsChecked}`);
+  console.log(`Notifications activées: ${isEventsNotif}`);
 }

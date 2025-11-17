@@ -1,0 +1,185 @@
+# ============================================================
+# GameOn - Configuration Apache (.htaccess)
+# Site: https://gameon.maximenardelli.fr/
+# ============================================================
+
+# Enable GZIP compression for text-based assets
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml+rss
+</IfModule>
+
+# Browser caching with optimal durations
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Default cache: 1 day
+  ExpiresDefault "access plus 1 day"
+
+  # Cache immutable assets for 1 year
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # Cache CSS and JavaScript for 2 weeks
+  ExpiresByType text/css "access plus 2 weeks"
+  ExpiresByType application/javascript "access plus 2 weeks"
+  ExpiresByType text/javascript "access plus 2 weeks"
+
+  # Cache fonts for 1 year (versioned by name)
+  ExpiresByType application/x-font-woff "access plus 1 year"
+  ExpiresByType application/x-font-woff2 "access plus 1 year"
+  ExpiresByType application/x-font-ttf "access plus 1 year"
+  ExpiresByType font/opentype "access plus 1 year"
+  ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+
+  # HTML: No cache (always check)
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# HTTP/2 Server Push for critical assets
+<IfModule mod_h2.c>
+  # Preload critical CSS and fonts
+  H2PushResource /main.min.css
+  H2PushResource /DM_Sans/DMSans-Regular.ttf
+</IfModule>
+
+# Cache control headers for better caching strategy
+<IfModule mod_headers.c>
+  # Cloudflare Web Analytics script - immutable
+  <FilesMatch "beacon\.min\.js">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+    Header set Content-Type "application/javascript; charset=utf-8"
+  </FilesMatch>
+
+  # CSS files with revalidation
+  <FilesMatch "\.(css)$">
+    Header set Cache-Control "public, max-age=1209600, must-revalidate"
+    Header set Content-Type "text/css; charset=utf-8"
+  </FilesMatch>
+
+  # JS files with revalidation
+  <FilesMatch "\.(js)$">
+    Header set Cache-Control "public, max-age=1209600, must-revalidate"
+    Header set Content-Type "application/javascript; charset=utf-8"
+  </FilesMatch>
+
+  # Media files - long cache
+  <FilesMatch "\.(jpg|jpeg|png|gif|svg|ico|webp)$">
+    Header set Cache-Control "public, max-age=2592000, immutable"
+  </FilesMatch>
+
+  # Fonts - very long cache (never changes with fingerprinting)
+  <FilesMatch "\.(woff|woff2|ttf|otf|eot)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # HTML files - no cache, always revalidate
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate, no-cache"
+    Header set Content-Type "text/html; charset=utf-8"
+  </FilesMatch>
+
+  # XML/Sitemap - weekly revalidation
+  <FilesMatch "\.(xml)$">
+    Header set Cache-Control "public, max-age=604800, must-revalidate"
+    Header set Content-Type "application/xml; charset=utf-8"
+  </FilesMatch>
+</IfModule>
+
+# Remove ETags (use Last-Modified instead)
+<IfModule mod_headers.c>
+  Header unset ETag
+  FileETag None
+</IfModule>
+
+# Prevent access to sensitive files and directories
+<FilesMatch "^\.">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Block access to source control and config files
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Block .git directory
+  RewriteRule "^\.git" - [F]
+
+  # Block common sensitive files
+  RewriteRule "^\.gitignore" - [F]
+  RewriteRule "^\.env" - [F]
+  RewriteRule "^config/" - [F]
+  RewriteRule "^\.htaccess" - [F]
+
+  # Remove .html extension from URLs (optional enhancement)
+  # RewriteCond %{REQUEST_FILENAME} !-d
+  # RewriteCond %{REQUEST_FILENAME}.html -f
+  # RewriteRule ^([^\.]+)$ $1.html [NC,L]
+</IfModule>
+
+# Security Headers for improved protection
+<IfModule mod_headers.c>
+  # Prevent clickjacking attacks
+  Header set X-Frame-Options "SAMEORIGIN"
+
+  # Prevent MIME type sniffing
+  Header set X-Content-Type-Options "nosniff"
+
+  # Enable XSS Protection (for legacy browsers)
+  Header set X-XSS-Protection "1; mode=block"
+
+  # Strict Referrer Policy (privacy + security)
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Permissions Policy (feature control)
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+
+  # Content Security Policy with Cloudflare Analytics support
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://static.cloudflareinsights.com https://*.cloudflare.com; frame-ancestors 'self'; upgrade-insecure-requests; block-all-mixed-content"
+
+  # Add git push to browser hints
+  Header set Link "</main.min.css>; rel=preload; as=style, </DM_Sans/DMSans-Regular.ttf>; rel=preload; as=font; crossorigin"
+</IfModule>
+
+# Force HTTPS and redirect to canonical domain
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Redirect to HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Redirect to www or non-www (adjust as needed for your domain)
+  # RewriteCond %{HTTP_HOST} !^www\. [NC]
+  # RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Disable directory listing
+Options -Indexes
+
+# Set default charset for all text files
+AddDefaultCharset UTF-8
+
+# Remove Apache and PHP version headers
+<IfModule mod_headers.c>
+  Header always unset X-Powered-By
+  Header unset X-Powered-By
+</IfModule>
+
+# Image optimization compression (if available)
+<IfModule mod_brotli.c>
+  AddOutputFilter BROTLI_COMPRESS text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Enable Keep-Alive for better performance
+<IfModule mod_http2.c>
+  Protocols h2 http/1.1
+</IfModule>
