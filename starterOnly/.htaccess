@@ -1,6 +1,7 @@
 # ============================================================
 # GameOn - Configuration Apache (.htaccess)
 # Site: https://gameon.maximenardelli.fr/
+# Corrigé pour portfolio embed
 # ============================================================
 
 # Enable GZIP compression for text-based assets
@@ -127,9 +128,6 @@
 
 # Security Headers for improved protection
 <IfModule mod_headers.c>
-  # Prevent clickjacking attacks
-  Header set X-Frame-Options "SAMEORIGIN"
-
   # Prevent MIME type sniffing
   Header set X-Content-Type-Options "nosniff"
 
@@ -142,8 +140,14 @@
   # Permissions Policy (feature control)
   Header set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
 
-  # Content Security Policy with Cloudflare Analytics support
-  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://static.cloudflareinsights.com https://*.cloudflare.com; frame-ancestors 'self'; upgrade-insecure-requests; block-all-mixed-content"
+  # Content Security Policy - Optimized for portfolio embed + Cloudflare Analytics
+  # FIXES:
+  # 1. Supprimé frame-ancestors (bloquait l'iframe du portfolio)
+  # 2. Supprimé X-Frame-Options (deprecated, CSP suffit)
+  # 3. Ajouté https://maximenardelli.fr pour ressources du portfolio
+  # 4. Ajouté https://cloudflareinsights.com pour beacon.min.js
+  # 5. Ajouté https://cloudflareinsights.com aux connect-src
+  Header set Content-Security-Policy "default-src 'self' https://maximenardelli.fr; script-src 'self' 'unsafe-inline' https://maximenardelli.fr https://static.cloudflareinsights.com https://cloudflareinsights.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://maximenardelli.fr https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' data: https://maximenardelli.fr https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https: blob: https://maximenardelli.fr; connect-src 'self' https: https://static.cloudflareinsights.com https://cloudflareinsights.com https://*.cloudflare.com; upgrade-insecure-requests;"
 
   # Add git push to browser hints
   Header set Link "</main.min.css>; rel=preload; as=style, </DM_Sans/DMSans-Regular.ttf>; rel=preload; as=font; crossorigin"
